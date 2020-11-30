@@ -13,7 +13,7 @@
 
 <%
 
-    Disciplina disciplinas = new Disciplina(null, null, 0);
+    Disciplina disciplinas = new Disciplina(null, null, 0,0);
     try {
         disciplinas = (Disciplina) application.getAttribute("disciplinas");
     } catch (Exception e) {
@@ -28,7 +28,7 @@
 
             Disciplina disciplin = list.get(i);
 
-            disciplin.setNota(nota);
+           
 
             newList.add(disciplin);
             count++;
@@ -38,7 +38,7 @@
     }
 
     if (count == list.size()) {
-        disciplinas.setList(newList);
+      
 
         application.setAttribute("disciplinas", disciplinas);
     }
