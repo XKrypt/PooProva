@@ -17,7 +17,7 @@ import POO.Prova.Disciplina;
 public class DBListener implements ServletContextListener {
 
     private static final String CLASS_NAME = "org.sqlite.JDBC";
-    private static final String DB_URL = "jdbc:sqlite:disciplina.db";
+    private static final String DB_URL = "jdbc:sqlite:disciplinas.db";
     
     public static String exceptionMessage = null;
     

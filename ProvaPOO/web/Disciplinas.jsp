@@ -13,35 +13,31 @@
 
 <%
 
-    Disciplina disciplinas = new Disciplina(null, null, 0,0);
-    try {
-        disciplinas = (Disciplina) application.getAttribute("disciplinas");
-    } catch (Exception e) {
-    }
+if(request.getParameter("add") != null){
+    String nome = request.getParameter("nome");
+    String ementa = request.getParameter("ementa");
+    int ciclo = Integer.parseInt(request.getParameter("ciclo"));
+    double nota =  Double.parseDouble(request.getParameter("nota"));
+    
+    Disciplina.add(nome, ementa, ciclo, nota);
+}
 
-    ArrayList<Disciplina> list = disciplinas.getList();
-    ArrayList<Disciplina> newList = new ArrayList();
-    int count = 0;
-    for (int i = 0; i < list.size(); i++) {
-        try {
-            float nota = Float.parseFloat(request.getParameter(i + ""));
 
-            Disciplina disciplin = list.get(i);
+if(request.getParameter("update") != null){
+     String nome = request.getParameter("nome");
+     String nomeAntigo = request.getParameter("nomeAntigo");
+    String ementa = request.getParameter("ementa");
+    int ciclo = Integer.parseInt(request.getParameter("ciclo"));
+    double nota =  Double.parseDouble(request.getParameter("nota"));
+    
+    Disciplina.update(nomeAntigo,nome, ementa, ciclo, nota);
+}
 
-           
 
-            newList.add(disciplin);
-            count++;
-        } catch (Exception e) {
-
-        }
-    }
-
-    if (count == list.size()) {
-      
-
-        application.setAttribute("disciplinas", disciplinas);
-    }
+if(request.getParameter("delete") != null){
+    String nome = request.getParameter("nome");
+     Disciplina.remove(nome);
+}
 
 %>
 <!DOCTYPE html>
@@ -53,33 +49,31 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+        
          <jsp:include page="WEB-INF/jspf/menu.jspf" />
+           <form>
+                   <input placeholder="nome" type="text" name="nome" />
+                   <input  placeholder="ementa" type="text" name="ementa" />
+                   <input  placeholder="ciclo" type="text" name="ciclo" />
+                   <input  placeholder="nota" type="text" name="nota"/>
+                   
+                   <input  type="hidden" name="nomeAntigo"/>
+                   <input   type="submit" name="add" value="adicionar"/>
+           </form>
         <div class="Disciplinas-Table">
-            <form>
-
-                <table class="table table-striped">
-
-                    <tr>
-                        <th>Disciplina</th>
-                        <th>Ementa</th>
-                        <th>Ciclo</th>
-                        <th>Nota</th>
-
-                    </tr>
-                    <%                    for (int i = 0; i < disciplinas.getList().size(); i++) {
-                    %>
-                    <tr>
-                        <td><% out.print(disciplinas.getList().get(i).getNome()); %></td> 
-                        <td><% out.print(disciplinas.getList().get(i).getEmenta()); %></td> 
-                        <td><% out.print(disciplinas.getList().get(i).getCiclo());%></td> 
-                        <td>   <input type="text" name="<%= i%>" value="<% out.print(disciplinas.getList().get(i).getNota()); %>">  </td>
-
-                    </tr>
-
-                    <% }%>
-                </table>
-                <input type="submit" value="Aplicar alterações">
-            </form>
+            <% for(Disciplina item : Disciplina.getList()){
+               %>
+               <form>
+                   <input type="text" name="nome" value="<%= item.getNome() %>"/>
+                   <input type="text" name="ementa" value="<%= item.getEmenta() %>"/>
+                   <input type="text" name="ciclo" value="<%= item.getCiclo() %>"/>
+                   <input type="text" name="nota" value="<%= item.getNota() %>"/>
+                   <input type="hidden" name="nomeAntigo" value="<%= item.getNome() %>"/>
+                    <input type="submit" name="delete" value="excluir"/>
+                    <input type="submit" name="update" value="alterar"/>
+               </form>
+            <%
+            }%>
         </div>
     </body>
 </html>

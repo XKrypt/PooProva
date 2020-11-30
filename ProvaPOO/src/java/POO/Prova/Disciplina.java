@@ -47,7 +47,7 @@ public class Disciplina {
             stmt.setInt(3, ciclo);
             stmt.setDouble(4, nota);
              stmt.setString(5, nomeAntigo);
-            stmt.executeQuery();
+            stmt.execute();
            
             
     
@@ -68,11 +68,11 @@ public class Disciplina {
         Exception methodEx = null;
         try {
             con = DBListener.getConnection();
-            stmt = con.prepareStatement("DELETE * FROM disciplinas WHERE nome = ?");
+            stmt = con.prepareStatement("DELETE FROM disciplinas WHERE nome = ?");
             stmt.setString(1, nome);
             
 
-            stmt.executeQuery();
+            stmt.execute();
            
             
     
@@ -93,13 +93,13 @@ public class Disciplina {
         Exception methodEx = null;
         try {
             con = DBListener.getConnection();
-            stmt = con.prepareStatement("INSERT * INTO disciplinas VALUES(?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO disciplinas VALUES(?, ?, ?, ?)");
             stmt.setString(1, nome);
             stmt.setString(2, ementa);
             stmt.setInt(3, ciclo);
             stmt.setDouble(4, nota);
             
-            stmt.executeQuery();
+            stmt.execute();
            
             
     
